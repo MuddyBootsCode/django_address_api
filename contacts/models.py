@@ -27,4 +27,4 @@ class Contact(models.Model):
     street_address2 = models.CharField(max_length=100, blank=True, default="")
     state = models.CharField(max_length=50, choices=STATE_CHOICES)
     zip_code = models.CharField(max_length=10)
-    slug = AutoSlugField(populate_from=slug_gen(), unique=True)
+    slug = AutoSlugField(populate_from=slug_gen, unique=True)

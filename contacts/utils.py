@@ -24,4 +24,4 @@ def slug_str():
 
 
 def slug_gen(instance=None):
-    return slug_str()[:10] + 'slug'
+    return slug_str()[:10]
