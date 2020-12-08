@@ -1,19 +1,15 @@
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import mixins
 from rest_framework import generics
 from contacts.serializers import ContactSerializer
 from contacts.models import Contact
+from django_filters.rest_framework import DjangoFilterBackend
 
 
-class ContactView(
-    mixins.ListModelMixin,
-    generics.GenericAPIView):
+class ContactListView(generics.ListAPIView):
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
-
-    def get(self, request, *args, **kwargs):
-        return self.list(self, request, *args, **kwargs)
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["first_name", "last_name", "phone_number", "phone_type", "street_address1", "street_address2",
+                        "city", "state", "zip_code"]
 
 
 class ContactCreateView(generics.CreateAPIView):
@@ -23,19 +19,20 @@ class ContactCreateView(generics.CreateAPIView):
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
 
-# class ContactView(APIView):
-#     """
-#     Return Contacts
-#     """
-#
-    # def get(self, request, *args, **kwargs):
-    #     qs = Contact.objects.all()
-    #     serializer = ContactSerializer(qs, many=True)
-    #     return Response(serializer.data)
-#
-#     def post(self, request, *args, **kwargs):
-#         serializer = ContactSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         return Response(serializer.errors)
+
+class ContactSlugView(generics.RetrieveAPIView):
+    """
+    Allows the user to select a contact by slug
+    """
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
+    lookup_field = 'slug'
+
+
+class ContactEditView(generics.UpdateAPIView):
+    """
+    Allows the user to edit a contact
+    """
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
+    lookup_field = 'slug'
