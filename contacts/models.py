@@ -25,6 +25,7 @@ class Contact(models.Model):
     phone_type = models.CharField(max_length=35, choices=PHONE_CHOICES)
     street_address1 = models.CharField(max_length=100)
     street_address2 = models.CharField(max_length=100, blank=True, default="")
+    city = models.CharField(max_length=100, default="")
     state = models.CharField(max_length=50, choices=STATE_CHOICES)
     zip_code = models.CharField(max_length=10)
     slug = AutoSlugField(populate_from=slug_gen, unique=True)

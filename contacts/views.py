@@ -6,14 +6,22 @@ from contacts.serializers import ContactSerializer
 from contacts.models import Contact
 
 
-class ContactView(mixins.ListModelMixin, generics.GenericAPIView):
+class ContactView(
+    mixins.ListModelMixin,
+    generics.GenericAPIView):
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
-    lookup_field = 'slug'
 
     def get(self, request, *args, **kwargs):
         return self.list(self, request, *args, **kwargs)
 
+
+class ContactCreateView(generics.CreateAPIView):
+    """
+    Allows the user to create a contact
+    """
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
 
 # class ContactView(APIView):
 #     """

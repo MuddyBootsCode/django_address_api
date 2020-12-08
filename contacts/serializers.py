@@ -13,6 +13,7 @@ class ContactSerializer(serializers.ModelSerializer):
             'phone_type',
             'street_address1',
             'street_address2',
+            'city',
             'state',
             'zip_code',
         ]
