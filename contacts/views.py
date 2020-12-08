@@ -5,6 +5,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ContactListView(generics.ListAPIView):
+    """
+    Returns a list view of contacts filterable by each contact field
+    """
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
     filter_backends = [DjangoFilterBackend]
@@ -32,6 +35,15 @@ class ContactSlugView(generics.RetrieveAPIView):
 class ContactEditView(generics.UpdateAPIView):
     """
     Allows the user to edit a contact
+    """
+    serializer_class = ContactSerializer
+    queryset = Contact.objects.all()
+    lookup_field = 'slug'
+
+
+class ContactDeleteView(generics.DestroyAPIView):
+    """
+    Allows the user to delete a contact
     """
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()

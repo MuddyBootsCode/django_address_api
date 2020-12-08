@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from contacts.views import ContactCreateView, ContactListView, ContactSlugView, ContactEditView
+from contacts.views import ContactCreateView, ContactListView, ContactSlugView, ContactEditView, ContactDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -8,5 +8,6 @@ urlpatterns = [
     path('create_contact/', ContactCreateView.as_view(), name='create'),
     path('contacts/<slug:slug>', ContactSlugView.as_view(), name='slug_view'),
     path('edit_contact/<slug:slug>', ContactEditView.as_view(), name='edit_view'),
+    path('delete_contact/<slug:slug>', ContactDeleteView.as_view(), name='edit_view'),
     path('api-auth/', include('rest_framework.urls'))
 ]
